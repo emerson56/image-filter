@@ -1,5 +1,6 @@
 import fs from 'fs';
 import Jimp = require('jimp');
+import { stringify } from 'querystring';
 
 // filterImageFromURL
 // helper function to download, filter, and save the filtered image locally
@@ -31,4 +32,32 @@ export async function deleteLocalFiles(files:Array<string>){
     for( let file of files) {
         fs.unlinkSync(file);
     }
+}
+
+// validateImage
+// helper function to validate the input parameter is a path to an image
+export function validateImageUrl(inputURL: string) : boolean
+{
+    if(!inputURL)
+    return false;
+
+    inputURL = inputURL.toLocaleLowerCase();
+    if(!inputURL.match(/(\.jpg|\.png|\.jpeg|\.gif)$/))
+    {
+    return false;
+    }
+    return validatePath(inputURL);
+}
+
+// validatePath
+// helper function to validate the path
+export function validatePath(inputURL: string) : boolean
+{
+    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+          '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+          '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+          '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+          '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+          '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(inputURL);
 }
