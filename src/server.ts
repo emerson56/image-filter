@@ -37,9 +37,17 @@ import {filterImageFromURL, deleteLocalFiles, validateImageURL} from './util/uti
                 .send(`Url does not point to a picture or is invalid`);
     }
 
-    let filteredImage =  await filterImageFromURL(image_url);
-    return res.status(200)
-              .sendFile(filteredImage);
+    try
+    {
+      let filteredImage =  await filterImageFromURL(image_url);
+      return res.status(200)
+                .sendFile(filteredImage);
+    }
+    catch(e)
+    {
+      return res.status(500)
+                .send(`An error occurred processing the request`);
+    }
   } );
 
   // Root Endpoint
