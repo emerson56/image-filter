@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import {filterImageFromURL, deleteLocalFiles, validateImageUrl} from './util/util';
+import {filterImageFromURL, deleteLocalFiles, validateImageURL} from './util/util';
 
 (async () => {
 
@@ -31,7 +31,7 @@ import {filterImageFromURL, deleteLocalFiles, validateImageUrl} from './util/uti
     let image_url: string = req.query.image_url;
 
     // validate query string param
-    if ( !image_url ||  !validateImageUrl(image_url))
+    if ( !image_url ||  !validateImageURL(image_url))
     {
     return res.status(400)
                 .send(`Url does not point to a picture or is invalid`);

@@ -36,7 +36,7 @@ export async function deleteLocalFiles(files:Array<string>){
 
 // validateImage
 // helper function to validate the input parameter is a path to an image
-export function validateImageUrl(inputURL: string) : boolean
+export function validateImageURL(inputURL: string) : boolean
 {
     if(!inputURL)
     return false;
